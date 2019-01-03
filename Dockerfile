@@ -2,19 +2,28 @@ FROM ubuntu:18.10
 MAINTAINER Hugo Josefson <hugo@josefson.org> (https://www.hugojosefson.com/)
 
 RUN echo "Ubuntu packages last updated 2019-01-03."
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
+  && apt-get install -y apt-utils \
   && apt-get dist-upgrade --purge -y \
   && apt-get autoremove --purge -y \
   && apt-get install -y \
-    curl     $(: 'required by these setup scripts') \
-    wget     $(: 'required by these setup scripts') \
-    jq       $(: 'required by these setup scripts') \
-    gosu     $(: 'for better process signalling in docker') \
-    x11-apps $(: 'basic X11 support') \
-    libxtst6 $(: 'required by webstorm') \
-    libxi6   $(: 'required by webstorm') \
-    git      $(: '~required by webstorm' ) \
-    vim      $(: 'useful') \
+    curl                $(: 'required by these setup scripts') \
+    wget                $(: 'required by these setup scripts') \
+    jq                  $(: 'required by these setup scripts') \
+    gosu                $(: 'for better process signalling in docker') \
+    x11-apps            $(: 'basic X11 support') \
+    libxtst6            $(: 'required by webstorm') \
+    libxi6              $(: 'required by webstorm') \
+    openjfx             $(: 'required by webstorm') \
+    libopenjfx-java     $(: 'required by webstorm') \
+    matchbox            $(: 'required by webstorm') \
+    libxslt1.1          $(: 'required by webstorm') \
+    libgl1-mesa-dri     $(: 'required by webstorm') \
+    libgl1-mesa-glx     $(: 'required by webstorm') \
+    firefox             $(: '~required by webstorm' ) \
+    git                 $(: '~required by webstorm' ) \
+    vim                 $(: 'useful') \
   && apt-get clean
 
 RUN echo "WebStorm last updated 2019-01-03."

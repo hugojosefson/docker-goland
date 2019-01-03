@@ -34,7 +34,7 @@ fi
 useradd \
   --uid "${USER_ID}" \
   --gid "${GROUP_ID}" \
-  --groups nvm \
+  --groups nvm,video \
   ${CREATE_HOME} \
   --home-dir "${HOME}" \
   "${USER_NAME}"
