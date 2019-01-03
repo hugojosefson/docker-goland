@@ -22,14 +22,14 @@ RUN echo "WebStorm last updated 2019-01-03."
 RUN mkdir /tmp/install-webstorm
 COPY install-webstorm latest-download-url url-to-version /tmp/install-webstorm/
 ARG DOWNLOAD_URL
-RUN ./install-webstorm "${DOWNLOAD_URL}" \
+RUN /tmp/install-webstorm/install-webstorm "${DOWNLOAD_URL}" \
   && rm -rf /tmp/install-webstorm \
   && rm -rf /opt/webstorm/jre64
 ENV WEBIDE_JDK=/usr/lib/jvm/default-java
 
 RUN echo "NVM and Node.js versions last updated 2019-01-03."
 ARG NVM_VERSION
-RUN test -z "${NVM_VERSION}" && echo "--build-arg NVM_VERSION must be supplied to docker build." >&2 && exit 1
+RUN (test ! -z "${NVM_VERSION}" && exit 0 || echo "--build-arg NVM_VERSION must be supplied to docker build." >&2 && exit 1)
 ENV NVM_DIR="/opt/nvm"
 COPY etc-profile.d-nvm /etc/profile.d/nvm
 RUN groupadd --system nvm \
