@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+DOWNLOAD_URL="${1:-$(./latest-download-url)}"
+INSTALL_DIR="/opt/webstorm"
+
+mkdir -p "${INSTALL_DIR}"
+curl --silent --location "${DOWNLOAD_URL}" \
+  | tar xz \
+    --strip-components 1 \
+    --directory "${INSTALL_DIR}"

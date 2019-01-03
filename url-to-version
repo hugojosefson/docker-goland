@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+basename "${1}" .tar.gz | cut -d '-' -f 2
