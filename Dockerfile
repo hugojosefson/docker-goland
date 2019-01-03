@@ -13,7 +13,6 @@ RUN apt-get update \
     libxtst6 \
     libxi6 \
     x11-apps \
-    default-jdk \
     vim \
     git \
   && apt-get clean
@@ -23,9 +22,7 @@ RUN mkdir /tmp/install-webstorm
 COPY install-webstorm latest-download-url url-to-version /tmp/install-webstorm/
 ARG DOWNLOAD_URL
 RUN /tmp/install-webstorm/install-webstorm "${DOWNLOAD_URL}" \
-  && rm -rf /tmp/install-webstorm \
-  && rm -rf /opt/webstorm/jre64
-ENV WEBIDE_JDK=/usr/lib/jvm/default-java
+  && rm -rf /tmp/install-webstorm
 
 RUN echo "NVM and Node.js versions last updated 2019-01-03."
 ARG NVM_VERSION
