@@ -2,11 +2,11 @@
 
 set -e
 
-DOWNLOAD_URL="${1:-$($(dirname ${0})/latest-download-url)}"
+WEBSTORM_URL="${1:-$($(dirname ${0})/latest-webstorm-url)}"
 INSTALL_DIR="/opt/webstorm"
 
 mkdir -p "${INSTALL_DIR}"
-curl --silent --location "${DOWNLOAD_URL}" \
+curl --silent --location "${WEBSTORM_URL}" \
   | tar xz \
     --strip-components 1 \
     --directory "${INSTALL_DIR}"

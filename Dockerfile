@@ -19,9 +19,9 @@ RUN apt-get update \
 
 RUN echo "WebStorm last updated 2019-01-03."
 RUN mkdir /tmp/install-webstorm
-COPY install-webstorm latest-download-url url-to-version /tmp/install-webstorm/
-ARG DOWNLOAD_URL
-RUN /tmp/install-webstorm/install-webstorm "${DOWNLOAD_URL}" \
+COPY install-webstorm latest-webstorm-url latest-nvm-version webstorm-url-to-version /tmp/install-webstorm/
+ARG WEBSTORM_URL
+RUN /tmp/install-webstorm/install-webstorm "${WEBSTORM_URL}" \
   && rm -rf /tmp/install-webstorm
 
 RUN echo "NVM and Node.js versions last updated 2019-01-03."

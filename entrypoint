@@ -2,6 +2,11 @@
 
 set -e
 
+if [[ "$(basename ${1} .sh) ${2}" == "webstorm --version" ]]; then
+  cat /opt/webstorm/product-info.json | jq -r .version
+  exit 0
+fi
+
 if ! [[ $EUID == 0 ]]; then
   echo "This docker image must be started as root, so don't use 'docker run --user=...'." >&2
   echo "Instead, pass environment variables USER_NAME, USER_ID, GROUP_NAME, GROUP_ID (and optionally HOME) for the user you want to become." >&2

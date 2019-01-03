@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+curl --silent "https://api.github.com/repos/creationix/nvm/releases/latest" \
+  | jq -r .tag_name
+
