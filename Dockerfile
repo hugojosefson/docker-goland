@@ -6,15 +6,15 @@ RUN apt-get update \
   && apt-get dist-upgrade --purge -y \
   && apt-get autoremove --purge -y \
   && apt-get install -y \
-    curl \
-    wget \
-    jq \
-    gosu \
-    libxtst6 \
-    libxi6 \
-    x11-apps \
-    vim \
-    git \
+    curl     $(: 'required by these setup scripts') \
+    wget     $(: 'required by these setup scripts') \
+    jq       $(: 'required by these setup scripts') \
+    gosu     $(: 'for better process signalling in docker') \
+    x11-apps $(: 'basic X11 support') \
+    libxtst6 $(: 'required by webstorm') \
+    libxi6   $(: 'required by webstorm') \
+    git      $(: '~required by webstorm' ) \
+    vim      $(: 'useful') \
   && apt-get clean
 
 RUN echo "WebStorm last updated 2019-01-03."
