@@ -10,3 +10,5 @@ curl --silent --location "${DOWNLOAD_URL}" \
   | tar xz \
     --strip-components 1 \
     --directory "${INSTALL_DIR}"
+
+ln -s ${INSTALL_DIR}/bin/webstorm.sh /usr/local/bin/webstorm
