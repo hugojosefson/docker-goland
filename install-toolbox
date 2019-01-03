@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+
+TOOLBOX_URL="${1:-$($(dirname ${0})/latest-toolbox-url)}"
+DOWNLOAD_DIR=/tmp/download-jetbrains
+INSTALL_DIR=/opt/jetbrains-toolbox
+mkdir -p ${DOWNLOAD_DIR}
+mkdir -p ${INSTALL_DIR}
+
+curl --silent --location "${TOOLBOX_URL}" \
+  | tar xz \
+    --strip-components 1 \
+    --directory ${DOWNLOAD_DIR}
+
+cd ${INSTALL_DIR}
+${DOWNLOAD_DIR}/jetbrains-toolbox --appimage-extract
+rm ${DOWNLOAD_DIR}/jetbrains-toolbox
+chmod -R go+rX .
+cat > /usr/local/bin/jetbrains-toolbox <<EOF
+#!/usr/bin/env bash
+
+set -e
+
+export APPDIR=$INSTALL_DIR/squashfs-root
+exec \$APPDIR/AppRun "\$@"
+EOF
+chmod +x /usr/local/bin/jetbrains-toolbox

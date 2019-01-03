@@ -39,4 +39,9 @@ useradd \
   --home-dir "${HOME}" \
   "${USER_NAME}"
 
-exec gosu "${USER_ID}:${GROUP_ID}" "$@"
+XDG_RUNTIME_DIR="/run/user/${USER_ID}"
+mkdir -p ${XDG_RUNTIME_DIR} 
+chown -R ${USER_ID}:${GROUP_ID} ${XDG_RUNTIME_DIR}
+
+XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} \
+  exec gosu "${USER_ID}:${GROUP_ID}" "$@"

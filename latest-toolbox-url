@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+curl --silent 'https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release' \
+  | jq -r .TBA[0].downloads.linux.link

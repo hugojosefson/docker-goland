@@ -3,11 +3,16 @@
 set -e
 
 NVM_VERSION="${NVM_VERSION:-$(./latest-nvm-version)}"
-LATEST_WEBSTORM_URL="$(./latest-webstorm-url)"
-LATEST_WEBSTORM_VERSION=$(./webstorm-url-to-version "${LATEST_WEBSTORM_URL}")
-WEBSTORM_URL="${WEBSTORM_URL:-${LATEST_WEBSTORM_URL}}"
-WEBSTORM_VERSION=$(./webstorm-url-to-version "${WEBSTORM_URL}")
 
+LATEST_WEBSTORM_URL="$(./latest-webstorm-url)"
+LATEST_WEBSTORM_VERSION=$(./jetbrains-url-to-version "${LATEST_WEBSTORM_URL}")
+WEBSTORM_URL="${WEBSTORM_URL:-${LATEST_WEBSTORM_URL}}"
+WEBSTORM_VERSION=$(./jetbrains-url-to-version "${WEBSTORM_URL}")
+
+LATEST_TOOLBOX_URL="$(./latest-toolbox-url)"
+LATEST_TOOLBOX_VERSION=$(./jetbrains-url-to-version "${LATEST_TOOLBOX_URL}")
+TOOLBOX_URL="${TOOLBOX_URL:-${LATEST_TOOLBOX_URL}}"
+TOOLBOX_VERSION=$(./jetbrains-url-to-version "${TOOLBOX_URL}")
 
 function isLatestWebStormVersion() {
   [[ "${WEBSTORM_VERSION}" == "${LATEST_WEBSTORM_VERSION}" ]]
@@ -22,6 +27,7 @@ fi
 docker build \
   --build-arg NVM_VERSION="${NVM_VERSION}" \
   --build-arg WEBSTORM_URL="${WEBSTORM_URL}" \
+  --build-arg TOOLBOX_URL="${TOOLBOX_URL}" \
   --tag hugojosefson/webstorm:${WEBSTORM_VERSION} \
   ${POSSIBLY_LATEST_TAG} \
   .
