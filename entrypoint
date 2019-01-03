@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e
+
+if ! [[ $EUID == 0 ]]; then
+  echo "This docker image must be started as root, so don't use 'docker run --user=...'." >&2
+  echo "Instead, pass environment variables USER_NAME, USER_ID, GROUP_NAME, GROUP_ID (and optionally HOME) for the user you want to become." >&2
+  exit 1
+fi
+
+if [[ "|${USER_NAME}|${USER_ID}|${GROUP_NAME}|${GROUP_ID}" == *"||"* ]]; then
+  echo "You must pass env variables USER_NAME, USER_ID, GROUP_NAME, GROUP_ID to the Docker container." >&2
+  echo "Passing env variable HOME is optional." >&2
+  exit 1
+fi
+HOME=${HOME:-"/home/${USER_NAME}"}
+
+groupadd \
+  --gid "${GROUP_ID}" \
+  "${GROUP_NAME}"
+
+if [[ -d "$HOME" ]]; then
+  CREATE_HOME=""
+else
+  CREATE_HOME="--create-home"
+fi
+
+useradd \
+  --uid "${USER_ID}" \
+  --gid "${GROUP_ID}" \
+  ${CREATE_HOME} \
+  --home-dir "${HOME}" \
+  "${USER_NAME}"
+
+exec gosu "${USER_ID}:${GROUP_ID}" "$@"
