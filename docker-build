@@ -2,10 +2,13 @@
 
 set -e
 
+NVM_VERSION=${NVM_VERSION:-$(curl --silent "https://api.github.com/repos/creationix/nvm/releases/latest" | jq -r .tag_name)}
+
 if [[ -z "${1}" ]]; then
   DOWNLOAD_URL="$(./latest-download-url)"
   VERSION=$(./url-to-version "${DOWNLOAD_URL}")
   docker build \
+    --build-arg NVM_VERSION="${NVM_VERSION}" \
     --tag hugojosefson/webstorm:${VERSION} \
     --tag hugojosefson/webstorm:latest \
     .
@@ -13,6 +16,7 @@ else
   DOWNLOAD_URL="${1}"
   VERSION=$(./url-to-version "${DOWNLOAD_URL}")
   docker build \
+    --build-arg NVM_VERSION="${NVM_VERSION}" \
     --tag hugojosefson/webstorm:${VERSION} \
     .
 fi

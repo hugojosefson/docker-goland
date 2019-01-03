@@ -14,6 +14,7 @@ if [[ "|${USER_NAME}|${USER_ID}|${GROUP_NAME}|${GROUP_ID}" == *"||"* ]]; then
   exit 1
 fi
 HOME=${HOME:-"/home/${USER_NAME}"}
+WEBIDE_VM_OPTIONS="-Duser.home=${HOME}"
 
 groupadd \
   --gid "${GROUP_ID}" \
@@ -28,6 +29,7 @@ fi
 useradd \
   --uid "${USER_ID}" \
   --gid "${GROUP_ID}" \
+  --groups nvm \
   ${CREATE_HOME} \
   --home-dir "${HOME}" \
   "${USER_NAME}"

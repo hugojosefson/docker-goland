@@ -2,7 +2,7 @@
 
 set -e
 
-DOWNLOAD_URL="${1:-$(./latest-download-url)}"
+DOWNLOAD_URL="${1:-$($(dirname ${0})/latest-download-url)}"
 INSTALL_DIR="/opt/webstorm"
 
 mkdir -p "${INSTALL_DIR}"
