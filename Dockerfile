@@ -1,7 +1,7 @@
 FROM ubuntu:18.10
 MAINTAINER Hugo Josefson <hugo@josefson.org> (https://www.hugojosefson.com/)
 
-RUN echo "Ubuntu packages last updated 2019-01-03."
+RUN echo "Ubuntu packages last updated 2019-02-11."
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get install -y apt-utils \
@@ -21,13 +21,14 @@ RUN apt-get update \
     libxslt1.1          $(: 'required by webstorm') \
     libgl1-mesa-dri     $(: 'required by webstorm') \
     libgl1-mesa-glx     $(: 'required by webstorm') \
+    fonts-ubuntu        $(: 'good for webstorm') \
     firefox             $(: '~required by webstorm' ) \
     git                 $(: '~required by webstorm' ) \
     libnss3             $(: 'required by jetbrains-toolkit, for logging in' ) \
     vim                 $(: 'useful') \
   && apt-get clean
 
-RUN echo "WebStorm last updated 2019-01-03."
+RUN echo "WebStorm last updated 2019-02-11."
 ARG WEBSTORM_URL
 ARG TOOLBOX_URL
 RUN mkdir /tmp/install-jetbrains
