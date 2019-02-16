@@ -20,7 +20,6 @@ RUN apt-get update \
     libxslt1.1          $(: 'required by webstorm') \
     libgl1-mesa-dri     $(: 'required by webstorm') \
     libgl1-mesa-glx     $(: 'required by webstorm') \
-    fonts-ubuntu        $(: 'good for webstorm') \
     firefox             $(: '~required by webstorm' ) \
     git                 $(: '~required by webstorm' ) \
     libnss3             $(: 'required by jetbrains-toolkit, for logging in' ) \
