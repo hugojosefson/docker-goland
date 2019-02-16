@@ -1,7 +1,6 @@
 FROM ubuntu:18.10
 MAINTAINER Hugo Josefson <hugo@josefson.org> (https://www.hugojosefson.com/)
 
-RUN echo "Ubuntu packages last updated 2019-02-11."
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
   && apt-get install -y apt-utils \
@@ -28,7 +27,6 @@ RUN apt-get update \
     vim                 $(: 'useful') \
   && apt-get clean
 
-RUN echo "WebStorm last updated 2019-02-11."
 ARG WEBSTORM_URL
 ARG TOOLBOX_URL
 RUN mkdir /tmp/install-jetbrains
@@ -47,7 +45,6 @@ COPY \
 RUN /tmp/install-jetbrains/install-toolbox "${TOOLBOX_URL}" 
 RUN rm -rf /tmp/install-webstorm
 
-RUN echo "NVM and Node.js versions last updated 2019-01-03."
 ARG NVM_VERSION
 RUN (test ! -z "${NVM_VERSION}" && exit 0 || echo "--build-arg NVM_VERSION must be supplied to docker build." >&2 && exit 1)
 ENV NVM_DIR="/opt/nvm"
