@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+GOLAND_URL="${1:-$($(dirname ${0})/latest-goland-url)}"
+INSTALL_DIR="/opt/goland"
+
+mkdir -p "${INSTALL_DIR}"
+curl --silent --location "${GOLAND_URL}" \
+  | tar xz \
+    --strip-components 1 \
+    --directory "${INSTALL_DIR}"
+
+ln -s ${INSTALL_DIR}/bin/goland.sh /usr/local/bin/goland

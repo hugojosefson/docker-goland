@@ -2,8 +2,8 @@
 
 set -e
 
-if [[ "$(basename ${1} .sh) ${2}" == "webstorm --version" ]]; then
-  cat /opt/webstorm/product-info.json | jq -r .version
+if [[ "$(basename ${1} .sh) ${2}" == "goland --version" ]]; then
+  cat /opt/goland/product-info.json | jq -r .version
   exit 0
 fi
 
@@ -34,7 +34,7 @@ fi
 useradd \
   --uid "${USER_ID}" \
   --gid "${GROUP_ID}" \
-  --groups nvm,video \
+  --groups video \
   ${CREATE_HOME} \
   --home-dir "${HOME}" \
   "${USER_NAME}"

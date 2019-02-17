@@ -2,37 +2,34 @@
 
 set -e
 
-NVM_VERSION="${NVM_VERSION:-$(./latest-nvm-version)}"
-
-LATEST_WEBSTORM_URL="$(./latest-webstorm-url)"
-LATEST_WEBSTORM_VERSION=$(./jetbrains-url-to-version "${LATEST_WEBSTORM_URL}")
-WEBSTORM_URL="${WEBSTORM_URL:-${LATEST_WEBSTORM_URL}}"
-WEBSTORM_VERSION=$(./jetbrains-url-to-version "${WEBSTORM_URL}")
+LATEST_GOLAND_URL="$(./latest-goland-url)"
+LATEST_GOLAND_VERSION=$(./jetbrains-url-to-version "${LATEST_GOLAND_URL}")
+GOLAND_URL="${GOLAND_URL:-${LATEST_GOLAND_URL}}"
+GOLAND_VERSION=$(./jetbrains-url-to-version "${GOLAND_URL}")
 
 LATEST_TOOLBOX_URL="$(./latest-toolbox-url)"
 LATEST_TOOLBOX_VERSION=$(./jetbrains-url-to-version "${LATEST_TOOLBOX_URL}")
 TOOLBOX_URL="${TOOLBOX_URL:-${LATEST_TOOLBOX_URL}}"
 TOOLBOX_VERSION=$(./jetbrains-url-to-version "${TOOLBOX_URL}")
 
-function isLatestWebStormVersion() {
-  [[ "${WEBSTORM_VERSION}" == "${LATEST_WEBSTORM_VERSION}" ]]
+function isLatestGoLandVersion() {
+  [[ "${GOLAND_VERSION}" == "${LATEST_GOLAND_VERSION}" ]]
 }
 
-if isLatestWebStormVersion; then
-  POSSIBLY_LATEST_TAG="--tag hugojosefson/webstorm:latest"
+if isLatestGoLandVersion; then
+  POSSIBLY_LATEST_TAG="--tag hugojosefson/goland:latest"
 else
   POSSIBLY_LATEST_TAG=""
 fi
 
 docker build \
-  --build-arg NVM_VERSION="${NVM_VERSION}" \
-  --build-arg WEBSTORM_URL="${WEBSTORM_URL}" \
+  --build-arg GOLAND_URL="${GOLAND_URL}" \
   --build-arg TOOLBOX_URL="${TOOLBOX_URL}" \
-  --tag hugojosefson/webstorm:${WEBSTORM_VERSION} \
+  --tag hugojosefson/goland:${GOLAND_VERSION} \
   ${POSSIBLY_LATEST_TAG} \
   .
 
 if [[ "${1}" == "--push" ]]; then
-  docker push hugojosefson/webstorm:${WEBSTORM_VERSION}
-  isLatestWebStormVersion && docker push hugojosefson/webstorm:latest
+  docker push hugojosefson/goland:${GOLAND_VERSION}
+  isLatestGoLandVersion && docker push hugojosefson/goland:latest
 fi
