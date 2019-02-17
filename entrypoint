@@ -48,9 +48,9 @@ function makeUserDir() {
 XDG_RUNTIME_DIR="/run/user/${USER_ID}"
 GOPATH="${HOME}/go"
 
-makeUserDir ""${XDG_RUNTIME_DIR}""
+makeUserDir "${XDG_RUNTIME_DIR}"
 makeUserDir "${GOPATH}"
 
-XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}"" \
+XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}" \
 GOPATH="${GOPATH}" \
   exec gosu "${USER_ID}:${GROUP_ID}" "$@"
