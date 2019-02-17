@@ -39,9 +39,18 @@ useradd \
   --home-dir "${HOME}" \
   "${USER_NAME}"
 
-XDG_RUNTIME_DIR="/run/user/${USER_ID}"
-mkdir -p ${XDG_RUNTIME_DIR} 
-chown -R ${USER_ID}:${GROUP_ID} ${XDG_RUNTIME_DIR}
+function makeUserDir() {
+  local dir="${1}"
+  mkdir -p "${dir}"
+  chown -R ${USER_ID}:${GROUP_ID} "${dir}"
+}
 
-XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} \
+XDG_RUNTIME_DIR="/run/user/${USER_ID}"
+GOPATH="${HOME}/go"
+
+makeUserDir ""${XDG_RUNTIME_DIR}""
+makeUserDir "${GOPATH}"
+
+XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}"" \
+GOPATH="${GOPATH}" \
   exec gosu "${USER_ID}:${GROUP_ID}" "$@"
