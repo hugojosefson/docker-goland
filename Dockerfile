@@ -1,4 +1,4 @@
-FROM ubuntu:18.10
+FROM ubuntu:21.04
 MAINTAINER Hugo Josefson <hugo@josefson.org> (https://www.hugojosefson.com/)
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -20,11 +20,14 @@ RUN apt-get update \
     libxslt1.1          $(: 'required by goland') \
     libgl1-mesa-dri     $(: 'required by goland') \
     libgl1-mesa-glx     $(: 'required by goland') \
+    libcanberra-gtk-module $(: '~required by goland on manjaro') \
     golang              $(: 'required by goland') \
     firefox             $(: '~required by goland' ) \
     git                 $(: '~required by goland' ) \
     libnss3             $(: 'required by jetbrains-toolkit, for logging in' ) \
-    vim                 $(: 'useful') \
+    sudo                   $(: 'useful') \
+    vim                    $(: 'useful') \
+    libnss3 libnss3-tools libnspr4 libgbm1 libxss1 \
   && apt-get clean
 
 ARG GOLAND_URL

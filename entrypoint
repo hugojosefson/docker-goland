@@ -18,8 +18,8 @@ if [[ "|${USER_NAME}|${USER_ID}|${GROUP_NAME}|${GROUP_ID}" == *"||"* ]]; then
   echo "Passing env variable HOME is optional." >&2
   exit 1
 fi
-HOME=${HOME:-"/home/${USER_NAME}"}
-WEBIDE_VM_OPTIONS="-Duser.home=${HOME} -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+export HOME=${HOME:-"/home/${USER_NAME}"}
+export WEBIDE_VM_OPTIONS="-Duser.home=${HOME} -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 
 groupadd \
   --gid "${GROUP_ID}" \

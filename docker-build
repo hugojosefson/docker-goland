@@ -2,6 +2,8 @@
 
 set -e
 
+cd "$(dirname ${0})"
+
 LATEST_GOLAND_URL="$(./latest-goland-url)"
 LATEST_GOLAND_VERSION=$(./jetbrains-url-to-version "${LATEST_GOLAND_URL}")
 GOLAND_URL="${GOLAND_URL:-${LATEST_GOLAND_URL}}"
